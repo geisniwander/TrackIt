@@ -1,26 +1,67 @@
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import lixeira from "../assets/lixeira.png";
+import { AuthContext } from "../contexts/Context";
 
 export default function Habit() {
   const days = ["D", "S", "T", "Q", "Q", "S", "S", "S"];
-  return (
-    <Container>
-      <Title>
-        <p>Ler 1 capítulo de livro</p>
-        <img alt="excluir" src={lixeira} />
-      </Title>
+  const { token } = useContext(AuthContext);
+  const [habits, setHabits] = useState(undefined);
 
-      <ContainerButtonsDay>
-        {days.map((day, i) => (
-          <ButtonDay key={i} indexDay={i}>
-            {day}
-          </ButtonDay>
-        ))}
-      </ContainerButtonsDay>
-    </Container>
+  useEffect(() => {
+    const promise = axios.get(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    promise.then((res) => {
+      console.log(res.data);
+      setHabits(res.data);
+    });
+    promise.catch((err) => console.log(err));
+  }, []);
+
+  if (habits === undefined) {
+    return <h1>Carregando...</h1>;
+  }
+
+  return (
+    <Total>
+      {habits.map((habit) => (
+        <Container>
+          <Title>
+            <p>{habit.name}</p>
+            <img alt="excluir" src={lixeira} />
+          </Title>
+          <ContainerButtonsDay>
+            {days.map((day, i) => (
+              <ButtonDay
+                key={i}
+                indexDay={i}
+                color={habit.days.includes(i) ? "#CFCFCF" : "white"}
+                disabled
+              >
+                {day}
+              </ButtonDay>
+            ))}
+          </ContainerButtonsDay>
+        </Container>
+      ))}
+    </Total>
   );
 }
-
+const Total = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+`;
 const Container = styled.div`
   width: 90%;
   background-color: white;
@@ -32,23 +73,22 @@ const Container = styled.div`
   box-sizing: border-box;
   padding-left: 4%;
   padding-right: 2%;
-
 `;
 const Title = styled.div`
-width: 100%;
-display: flex;
-justify-content: space-between;
-font-style: normal;
-font-weight: 400;
-font-size: 19px;
-line-height: 25px;
-color: #666666;
-margin-top: 4%;
-img{ 
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 25px;
+  color: #666666;
+  margin-top: 4%;
+  img {
     width: 12px;
     height: 15px;
-}
-`
+  }
+`;
 const ContainerButtonsDay = styled.div`
   width: 100%;
   background-color: white;
@@ -60,7 +100,7 @@ const ContainerButtonsDay = styled.div`
 const ButtonDay = styled.button`
   width: 33px;
   height: 33px;
-  background: #ffffff;
+  background: ${(props) => props.color};
   border: 1px solid #d5d5d5;
   border-radius: 5px;
   margin-right: 1%;
@@ -68,7 +108,7 @@ const ButtonDay = styled.button`
   font-weight: 400;
   font-size: 19.976px;
   line-height: 25px;
-  color: #dbdbdb;
+  color: ${(props) => (props.color === "white" ? "#CFCFCF" : "white")};
   display: flex;
   align-items: center;
   justify-content: center;
