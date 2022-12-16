@@ -40,8 +40,9 @@ export default function AuthProvider({ children }) {
       config
     );
     promise.then(() => {
-      setCreateHabit(false);
       navigate("/habitos");
+      setCreateHabit(false);
+      setName("");
     });
     promise.catch((err) => console.log(err));
   }

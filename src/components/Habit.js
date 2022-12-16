@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import lixeira from "../assets/lixeira.png";
 import { AuthContext } from "../contexts/Context";
 
 export default function Habit() {
   const days = ["D", "S", "T", "Q", "Q", "S", "S", "S"];
-  const { token } = useContext(AuthContext);
+  const { token, name, createHabit, setCreateHabit } = useContext(AuthContext);
   const [habits, setHabits] = useState(undefined);
+  const [deletH, setDeleteH] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const promise = axios.get(
@@ -23,19 +26,43 @@ export default function Habit() {
       setHabits(res.data);
     });
     promise.catch((err) => console.log(err));
-  }, []);
+  }, [createHabit, deletH]);
 
   if (habits === undefined) {
     return <h1>Carregando...</h1>;
   }
 
+  function deleteH(id) {
+    console.log(id);
+    const promise = axios.delete(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    promise.then(() => {
+      navigate("/habitos");
+      setDeleteH(false);
+    });
+    promise.catch((err) => console.log(err));
+  }
+
   return (
     <Total>
       {habits.map((habit) => (
-        <Container>
+        <Container key={habit.id}>
           <Title>
             <p>{habit.name}</p>
-            <img alt="excluir" src={lixeira} />
+            <img
+              alt="excluir"
+              onClick={() => {
+                deleteH(habit.id);
+                setDeleteH(true);
+              }}
+              src={lixeira}
+            />
           </Title>
           <ContainerButtonsDay>
             {days.map((day, i) => (
