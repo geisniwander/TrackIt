@@ -1,25 +1,18 @@
 import logo from "../assets/logo.png";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../contexts/Context";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
-  const navigate = useNavigate();
-  function login(e){
-    e.preventDefault();
-    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {email: email.toString(), password: password.toString()});
-    promise.then((r) =>{setToken(r.data.token); navigate("/hoje")});
-    promise.catch((err)=> console.log(err));
-  }
+  const {login} = useContext(AuthContext);
 
   return (
     <ContainerLogin>
       <img alt="logo" src={logo} />
-      <Form onSubmit={login}>
+      <Form onSubmit={(e) => login(e,email,password)}>
         <Input type="email" placeholder="email" value={email} onChange={(e)=> setEmail(e.target.value)} required />
         <Input type="password" placeholder="senha" value={password} onChange={(e)=> setPassword(e.target.value)} required />
         <Button type="submit">Entrar</Button>

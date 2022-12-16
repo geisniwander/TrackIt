@@ -1,64 +1,71 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Footer() {
   return (
     <Container>
       <Menu>
-        <p>Hábitos</p><p>Histórico</p>
+        <Link to="/habitos">
+          <p>Hábitos</p>
+        </Link>
+        <Link to="/historico">
+          <p>Histórico</p>
+        </Link>
       </Menu>
-      <Progress>
-        <p>Hoje</p>
-      </Progress>
+      <Link to="/hoje">
+        <Progress>
+          <p>Hoje</p>
+        </Progress>
+      </Link>
     </Container>
   );
 }
 const Container = styled.div`
-position: fixed;
-bottom: 0;
-left: 0;    
-width: 100%;
-display: flex;
-justify-content: center;
-box-sizing: border-box;
-padding: 3%;
-`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 3%;
+  a{
+    text-decoration: none;
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 22px;
+    text-align: center;
+  }
+`;
 
 const Menu = styled.div`
-position: fixed;
-bottom: 0;
-left: 0;
-width: 100%;
-height: 70px;
-display: flex;
-justify-content: space-between;
-box-sizing: border-box;
-padding: 5%;
-font-family: 'Lexend Deca';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 22px;
-text-align: center;
-color: #52B6FF;
-background-color: white;
-
-`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 5%;
+  background-color: white;
+  p{
+    color: #52b6ff;
+  }    
+`;
 
 const Progress = styled.div`
-width: 90px;
-height: 90px;
-border-radius: 50%;
-background-color: #52B6FF;
-border: none;
-display: flex;
-justify-content: center;
-align-items: center;
-font-family: 'Lexend Deca';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 22px;
-text-align: center;
-color: #FFFFFF;
-z-index: 5;
-`
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #52b6ff;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 7;
+  color: #ffffff;
+`;

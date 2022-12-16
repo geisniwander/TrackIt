@@ -1,6 +1,6 @@
 import logo from "../assets/logo.png";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -9,6 +9,7 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
+  const navigate = useNavigate();
 
   function register(e) {
     e.preventDefault();
@@ -21,7 +22,7 @@ export default function SignUp() {
         password: password.toString(),
       }
     );
-    promise.then(() => console.log("Deu certo"));
+    promise.then(() => navigate("/"));
     promise.catch((err) => console.log(err));
   }
 

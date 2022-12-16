@@ -1,21 +1,75 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../contexts/Context";
 
 export default function NewHabit() {
-  const days = ["D", "S", "T", "Q", "Q", "S", "S", "S"];
+  const days = [
+    { name: "D", id: "7" },
+    { name: "S", id: "1" },
+    { name: "T", id: "2" },
+    { name: "Q", id: "3" },
+    { name: "Q", id: "4" },
+    { name: "S", id: "5" },
+    { name: "S", id: "6" },
+  ];
+
+  const [daysHabit, setDaysHabit] = useState([]);
+  const { setCreateHabit, create } = useContext(AuthContext);
+  const [nameHabit, setNameHabit] = useState("");
+
+  function createH(e) {
+    if (daysHabit.length > 0) {
+      create(e, nameHabit, daysHabit);
+    }
+  }
+
+  function setDays(e, i) {
+    e.preventDefault();
+    if (i === 0) {
+      i = 7;
+    }
+    if (daysHabit.includes(i)) {
+      const array = daysHabit;
+      const index = array.indexOf(i);
+      array.splice(index, 1);
+      setDaysHabit([...array]);
+    } else {
+      setDaysHabit([...daysHabit, i]);
+    }
+  }
+
   return (
     <Container>
-      <Input type="text" placeholder="nome do hábito"></Input>
-      <ContainerButtonsDay>
-        {days.map((day, i) => (
-          <ButtonDay key={i} indexDay={i}>
-            {day}
-          </ButtonDay>
-        ))}
-      </ContainerButtonsDay>
-      <ContainerButton>
-        <ButtonCancel> Cancelar</ButtonCancel>
-        <ButtonSave>Salvar</ButtonSave>
-      </ContainerButton>
+      <Form>
+        <Input
+          type="text"
+          placeholder="nome do hábito"
+          value={nameHabit}
+          onChange={(e) => setNameHabit(e.target.value)}
+          required
+        ></Input>
+        <ContainerButtonsDay>
+          {days.map((day) => (
+            <ButtonDay
+              key={day.id}
+              indexDay={day.id}
+              onClick={(e) => setDays(e, day.id)}
+              color={daysHabit.includes(day.id) ? "#CFCFCF" : "white"}
+            >
+              {day.name}
+            </ButtonDay>
+          ))}
+        </ContainerButtonsDay>
+        <ContainerButton>
+          <ButtonCancel onClick={() => setCreateHabit(false)}>
+            {" "}
+            Cancelar
+          </ButtonCancel>
+          <ButtonSave type="submit" onClick={createH}>
+            Salvar
+          </ButtonSave>
+        </ContainerButton>
+      </Form>
     </Container>
   );
 }
@@ -28,6 +82,14 @@ const Container = styled.div`
   align-items: center;
   margin-top: 5%;
   border-radius: 5px;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ContainerButtonsDay = styled.div`
@@ -65,7 +127,7 @@ const Input = styled.input`
 const ButtonDay = styled.button`
   width: 33px;
   height: 33px;
-  background: #ffffff;
+  background: ${(props) => props.color};
   border: 1px solid #d5d5d5;
   border-radius: 5px;
   margin-right: 1%;
@@ -73,9 +135,9 @@ const ButtonDay = styled.button`
   font-weight: 400;
   font-size: 19.976px;
   line-height: 25px;
-  color: #dbdbdb;
+  color: ${(props) => (props.color === "white" ? "#CFCFCF" : "white")};
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
 `;
 
