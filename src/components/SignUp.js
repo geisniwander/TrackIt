@@ -1,7 +1,5 @@
 import logo from "../assets/logo.png";
 import styled from "styled-components";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 
 export default function SignUp() {
   return (

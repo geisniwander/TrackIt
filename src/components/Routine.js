@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Footer from "./Footer";
+import Habit from "./Habit";
 import Navbar from "./Navbar";
 import NewHabit from "./NewHabit";
 
@@ -13,6 +14,7 @@ return(
             <Add>+</Add>
         </Title>
         <NewHabit/>
+        <Habit/>
     </ContainerHabits>
     <Footer/>
     </>
@@ -25,7 +27,7 @@ width: 100;
 display: flex;
 flex-direction: column;
 align-items: center;
-background-color: #E5E5E5;
+background-color: #F2F2F2;
 color: #126BA5;
 `
 

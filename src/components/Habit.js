@@ -1,7 +1,75 @@
 import styled from "styled-components";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import lixeira from "../assets/lixeira.png";
 
-export default function Habit(){
+export default function Habit() {
+  const days = ["D", "S", "T", "Q", "Q", "S", "S", "S"];
+  return (
+    <Container>
+      <Title>
+        <p>Ler 1 capítulo de livro</p>
+        <img alt="excluir" src={lixeira} />
+      </Title>
+
+      <ContainerButtonsDay>
+        {days.map((day, i) => (
+          <ButtonDay key={i} indexDay={i}>
+            {day}
+          </ButtonDay>
+        ))}
+      </ContainerButtonsDay>
+    </Container>
+  );
 }
 
+const Container = styled.div`
+  width: 90%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding-left: 4%;
+  padding-right: 2%;
+
+`;
+const Title = styled.div`
+width: 100%;
+display: flex;
+justify-content: space-between;
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 25px;
+color: #666666;
+margin-top: 4%;
+img{ 
+    width: 12px;
+    height: 15px;
+}
+`
+const ContainerButtonsDay = styled.div`
+  width: 100%;
+  background-color: white;
+  display: flex;
+  margin-top: 3%;
+  margin-bottom: 5%;
+`;
+
+const ButtonDay = styled.button`
+  width: 33px;
+  height: 33px;
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  margin-right: 1%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19.976px;
+  line-height: 25px;
+  color: #dbdbdb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
