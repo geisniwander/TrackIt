@@ -7,9 +7,7 @@ import { AuthContext } from "../contexts/Context";
 
 export default function Habit() {
   const days = ["D", "S", "T", "Q", "Q", "S", "S", "S"];
-  const { token, name, createHabit, setCreateHabit } = useContext(AuthContext);
-  const [habits, setHabits] = useState(undefined);
-  const [deletH, setDeleteH] = useState(false);
+  const { token, createHabit,habits,setHabits,deletH, setDeleteH } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +31,6 @@ export default function Habit() {
   }
 
   function deleteH(id) {
-    console.log(id);
     const promise = axios.delete(
       `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
       {

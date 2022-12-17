@@ -9,6 +9,11 @@ export default function AuthProvider({ children }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [createHabit, setCreateHabit] = useState(false);
+  const [habits, setHabits] = useState(undefined);
+  const [deletH, setDeleteH] = useState(false);
+  const [qtdDone, setQtdDone] = useState(0);
+
+
   const navigate = useNavigate();
 
   function login(e, email, password) {
@@ -49,7 +54,21 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ login, token, createHabit, setCreateHabit, create, image }}
+      value={{
+        login,
+        token,
+        createHabit,
+        setCreateHabit,
+        create,
+        name,
+        image,
+        setHabits,
+        habits,
+        deletH, 
+        setDeleteH,
+        qtdDone,
+        setQtdDone
+      }}
     >
       {children}
     </AuthContext.Provider>

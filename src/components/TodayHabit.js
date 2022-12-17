@@ -1,17 +1,99 @@
 import styled from "styled-components";
+import { AuthContext } from "../contexts/Context";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export default function TodayHabit() {
+  const { token, createHabit, habits, setHabits, setQtdDone } = useContext(AuthContext);
+  const [todayHabits, setTodayHabits] = useState(undefined);
+  const [done, setDone] = useState(false);
+ 
+
+  useEffect(() => {
+    const promise = axios.get(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    promise.then((res) => {
+      setTodayHabits(res.data);
+      
+    });
+    promise.catch((err) => console.log(err));
+
+  }, [done]);
+
+
+
+  function doneH(i, done) {
+    if (done) {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${i}/uncheck`,
+        { body: {} },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      promise.then((res) => {
+        setDone(false);
+      });
+      promise.catch((err) => console.log(err));
+    } else {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${i}/check`,
+        { body: {} },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      promise.then((res) => {
+        setDone(false);
+      });
+      promise.catch((err) => console.log(err));
+    }
+  }
+
+  function conclude(){
+    let qtd = todayHabits.length;
+    let done =0;
+    todayHabits.map((habit)=> {habit.done ? done++ : done=done })
+    console.log(done)
+    setQtdDone((done/qtd)*100)
+  }
+
+  if (todayHabits === undefined) {
+    return <h1>Carregando...</h1>;
+  }
+
   return (
-    <Container>
-      <ContainerHabit>
-        <h1>Ler 1 capítulo do livro</h1>
-        <p>Sequência atual: 3 dias</p>
-        <p>Seu recorde: 5 dias</p>
-      </ContainerHabit>
-      <ContainerStatus>
-        <ion-icon name="checkbox"></ion-icon>
-      </ContainerStatus>
-    </Container>
+    conclude(),
+    <>        
+      {todayHabits.map((habit) => (
+        <Container key={habit.id}>
+          <ContainerHabit>
+            <h1>{habit.name}</h1>
+            <p>Sequência atual: {habit.currentSequence}</p>
+            <p>Seu recorde: {habit.highestSequence}</p>
+          </ContainerHabit>
+          <ContainerStatus color={habit.done ? "#8FC549" : "#E7E7E7"}>
+            <ion-icon
+              name="checkbox"
+              onClick={() => {
+                doneH(habit.id, habit.done);
+                setDone(true);
+              }}
+            ></ion-icon>
+          </ContainerStatus>
+        </Container>
+      ))}
+    </>
   );
 }
 
@@ -51,9 +133,8 @@ const ContainerStatus = styled.div`
   background-color: white;
   display: flex;
   justify-content: end;
-  ion-icon{
+  ion-icon {
     font-size: 90px;
-    color: green;
+    color: ${(props) => props.color};
   }
 `;
-
