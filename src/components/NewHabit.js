@@ -19,11 +19,10 @@ export default function NewHabit() {
 
   function createH(e) {
     e.preventDefault();
-    if(daysHabit>0){
+    if (daysHabit > 0) {
       create(e, nameHabit, daysHabit);
-    }
-    else{
-      alert("Selecione ao menos um dia")
+    } else {
+      alert("Selecione ao menos um dia");
     }
   }
 

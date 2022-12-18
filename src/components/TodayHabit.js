@@ -68,9 +68,7 @@ export default function TodayHabit() {
             <h1>{habit.name}</h1>
             <p>
               Sequência atual:{" "}
-              <Sequence
-                color={(habit.done) ? "#8FC549" : undefined}
-              >
+              <Sequence color={habit.done ? "#8FC549" : undefined}>
                 {habit.currentSequence} dias
               </Sequence>
             </p>
@@ -78,8 +76,9 @@ export default function TodayHabit() {
               Seu recorde:{" "}
               <Sequence
                 color={
-                  (habit.done && habit.currentSequence === habit.highestSequence) ?
-                  "#8FC549" : undefined
+                  habit.done && habit.currentSequence === habit.highestSequence
+                    ? "#8FC549"
+                    : undefined
                 }
               >
                 {habit.highestSequence} dias
@@ -144,6 +143,6 @@ const ContainerStatus = styled.div`
 `;
 
 const Sequence = styled.span`
-display: inline;
+  display: inline;
   color: ${(props) => props.color};
 `;

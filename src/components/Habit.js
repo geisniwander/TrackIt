@@ -7,7 +7,8 @@ import { AuthContext } from "../contexts/Context";
 
 export default function Habit() {
   const days = ["D", "S", "T", "Q", "Q", "S", "S"];
-  const { token, createHabit,habits,setHabits,deletH, setDeleteH } = useContext(AuthContext);
+  const { token, createHabit, habits, setHabits, deletH, setDeleteH } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {

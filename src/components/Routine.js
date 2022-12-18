@@ -10,26 +10,26 @@ export default function Routine() {
   const { createHabit, setCreateHabit } = useContext(AuthContext);
 
   return (
-   <>
+    <>
       <Navbar />
       <Total>
-      <ContainerHabits>
-        <Title>
-          <p>Meus Hábitos</p>
-          <Add onClick={() => setCreateHabit(true)}>+</Add>
-        </Title>
-        {createHabit ? <NewHabit /> : null}
-        <Habit />
-      </ContainerHabits>
+        <ContainerHabits>
+          <Title>
+            <p>Meus Hábitos</p>
+            <Add onClick={() => setCreateHabit(true)}>+</Add>
+          </Title>
+          {createHabit ? <NewHabit /> : null}
+          <Habit />
+        </ContainerHabits>
       </Total>
       <Footer />
-      </>
+    </>
   );
 }
 const Total = styled.div`
-height: 100vh;
-background-color: #f2f2f2;
-`
+  height: 100vh;
+  background-color: #f2f2f2;
+`;
 const ContainerHabits = styled.div`
   height: auto;
   width: 100%;

@@ -7,14 +7,26 @@ import { AuthContext } from "../contexts/Context";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   return (
     <ContainerLogin>
       <img alt="logo" src={logo} />
-      <Form onSubmit={(e) => login(e,email,password)}>
-        <Input type="email" placeholder="email" value={email} onChange={(e)=> setEmail(e.target.value)} required />
-        <Input type="password" placeholder="senha" value={password} onChange={(e)=> setPassword(e.target.value)} required />
+      <Form onSubmit={(e) => login(e, email, password)}>
+        <Input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <Button type="submit">Entrar</Button>
       </Form>
       <Link to="/cadastro">
@@ -45,6 +57,9 @@ const ContainerLogin = styled.div`
     text-decoration-line: underline;
     color: #52b6ff;
     margin-top: 8%;
+  }
+  a{
+    text-decoration: none;
   }
 `;
 

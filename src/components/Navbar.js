@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { AuthContext } from "../contexts/Context";
 
 export default function Navbar() {
-    const {image} = useContext(AuthContext);
+  const { image } = useContext(AuthContext);
 
   return (
     <Nav>
@@ -29,7 +29,7 @@ const Nav = styled.div`
   box-sizing: border-box;
   padding: 5%;
   overflow: hidden;
-  z-index:10;
+  z-index: 10;
   p {
     font-family: "Playball";
     font-style: normal;
@@ -44,7 +44,7 @@ const Nav = styled.div`
     background-color: white;
     border-radius: 100%;
   }
-  a{
+  a {
     text-decoration: none;
   }
 `;

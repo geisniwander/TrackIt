@@ -11,10 +11,8 @@ export default function AuthProvider({ children }) {
   const [createHabit, setCreateHabit] = useState(false);
   const [habits, setHabits] = useState(undefined);
   const [deletH, setDeleteH] = useState(false);
-  const [qtdDone, setQtdDone] = useState(0);
+  const [qtdDone, setQtdDone] = useState(undefined);
   const [todayHabits, setTodayHabits] = useState(undefined);
-
-
 
   const navigate = useNavigate();
 
@@ -30,7 +28,9 @@ export default function AuthProvider({ children }) {
       setImage(r.data.image);
       navigate("/hoje");
     });
-    promise.catch((err) => console.log(err));
+    promise.catch((err) => {
+      alert(err.response.data.message);
+    });
   }
 
   function create(e, name, days) {
@@ -54,11 +54,16 @@ export default function AuthProvider({ children }) {
     promise.catch((err) => console.log(err));
   }
 
-  function conclude(){
-    let qtd = todayHabits.length;
-    let done =0;
-    todayHabits.map((habit)=> habit.done && done++ )
-    setQtdDone(((done/qtd)*100).toFixed())
+  function conclude() {
+    if (todayHabits.length === 0 || !todayHabits) {
+      setQtdDone(0);
+      return;
+    } else {
+      let qtd = todayHabits.length;
+      let done = 0;
+      todayHabits.map((habit) => habit.done && done++);
+      setQtdDone(((done / qtd) * 100).toFixed());
+    }
   }
 
   return (
@@ -73,12 +78,12 @@ export default function AuthProvider({ children }) {
         image,
         setHabits,
         habits,
-        deletH, 
+        deletH,
         setDeleteH,
         qtdDone,
         todayHabits,
         setTodayHabits,
-        conclude
+        conclude,
       }}
     >
       {children}

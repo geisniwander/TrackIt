@@ -36,34 +36,41 @@ export default function Today() {
       day = "Sábado";
     }
   }
+
+  function Percentage() {
+    if (qtdDone <= 0) {
+      return <p>Nenhum hábito concluído ainda</p>;
+    } else {
+      return (
+        <Sequence>
+          <p>{qtdDone}% dos hábitos concluídos</p>
+        </Sequence>
+      );
+    }
+  }
+
   return (
     <>
       <Navbar />
       <Total>
-      <ContainerHabits>
-        <Title>
-          <h1>
-            {day}, {dayjs().format("DD-MM")}
-          </h1>
-          <p>
-            {qtdDone === 0 ? 
-              "Nenhum hábito concluído ainda"
-             : 
-              <Sequence>{qtdDone}% dos hábitos concluídos</Sequence>
-            }
-          </p>
-        </Title>
-        <TodayHabit />
-      </ContainerHabits>
+        <ContainerHabits>
+          <Title>
+            <h1>
+              {day}, {dayjs().format("DD-MM")}
+            </h1>
+            <Percentage />
+          </Title>
+          <TodayHabit />
+        </ContainerHabits>
       </Total>
       <Footer />
-      </>
+    </>
   );
 }
 const Total = styled.div`
-height: 100vh;
-background-color: #f2f2f2;
-`
+  height: 100vh;
+  background-color: #f2f2f2;
+`;
 const ContainerHabits = styled.div`
   height: auto;
   width: 100%;
@@ -72,7 +79,7 @@ const ContainerHabits = styled.div`
   align-items: center;
   background-color: #f2f2f2;
   color: #126ba5;
-  padding-bottom:30%;
+  padding-bottom: 30%;
 `;
 
 const Title = styled.div`
@@ -84,6 +91,7 @@ const Title = styled.div`
   font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
+  overflow-y: hidden;
   h1 {
     font-size: 22px;
     line-height: 29px;
@@ -98,5 +106,7 @@ const Title = styled.div`
 
 const Sequence = styled.span`
   display: inline;
-  color: #8fc549;
+  p {
+    color: #8fc549;
+  }
 `;

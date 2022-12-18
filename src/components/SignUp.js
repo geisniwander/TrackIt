@@ -89,6 +89,9 @@ const ContainerSignUp = styled.div`
     color: #52b6ff;
     margin-top: 8%;
   }
+  a{
+    text-decoration: none;
+  }
 `;
 
 const Form = styled.form`
