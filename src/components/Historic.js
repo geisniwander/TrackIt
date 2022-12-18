@@ -33,7 +33,6 @@ const Title = styled.div`
   box-sizing: border-box;
   padding-left: 5%;
   padding-right: 5%;
-  font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   h1 {

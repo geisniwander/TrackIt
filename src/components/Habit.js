@@ -4,9 +4,18 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import lixeira from "../assets/lixeira.png";
 import { AuthContext } from "../contexts/Context";
+import { BeatLoader } from "react-spinners";
 
 export default function Habit() {
-  const days = ["D", "S", "T", "Q", "Q", "S", "S"];
+  const days = [
+    { name: "D", id: 0 },
+    { name: "S", id: 1 },
+    { name: "T", id: 2 },
+    { name: "Q", id: 3 },
+    { name: "Q", id: 4 },
+    { name: "S", id: 5 },
+    { name: "S", id: 6 },
+  ];
   const { token, createHabit, habits, setHabits, deletH, setDeleteH } =
     useContext(AuthContext);
   const navigate = useNavigate();
@@ -28,7 +37,7 @@ export default function Habit() {
   }, [createHabit, deletH]);
 
   if (habits === undefined) {
-    return <h1>Carregando...</h1>;
+    return <BeatLoader color="#52b6ff" />;
   }
 
   function deleteH(id) {
@@ -47,30 +56,42 @@ export default function Habit() {
     promise.catch((err) => console.log(err));
   }
 
+  if (habits.length === 0) {
+    return (
+      <None>
+        Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+        começar a trackear!
+      </None>
+    );
+  }
   return (
     <Total>
       {habits.map((habit) => (
-        <Container key={habit.id}>
+        <Container key={habit.id} data-test="habit-container">
           <Title>
-            <p>{habit.name}</p>
+            <p data-test="habit-name">{habit.name}</p>
             <img
               alt="excluir"
               onClick={() => {
-                deleteH(habit.id);
-                setDeleteH(true);
+                if (window.confirm("Deseja realmente apagar este item?")) {
+                  deleteH(habit.id);
+                  setDeleteH(true);
+                }
               }}
               src={lixeira}
+              data-test="habit-delete-btn"
             />
           </Title>
           <ContainerButtonsDay>
-            {days.map((day, i) => (
+            {days.map((day) => (
               <ButtonDay
-                key={i}
-                indexDay={i}
-                color={habit.days.includes(i) ? "#CFCFCF" : "white"}
+                key={day.id}
+                indexDay={day.id}
+                color={habit.days.includes(day.id) ? "#CFCFCF" : "white"}
                 disabled
+                data-test="habit-day"
               >
-                {day}
+                {day.name}
               </ButtonDay>
             ))}
           </ContainerButtonsDay>
@@ -136,4 +157,14 @@ const ButtonDay = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const None = styled.div`
+  margin-top: 5%;
+  width: 90%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  color: #666666;
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { BeatLoader } from 'react-spinners'
+import { BeatLoader } from "react-spinners";
 import { AuthContext } from "../contexts/Context";
 import { useContext } from "react";
 
@@ -13,7 +13,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  const {loading, setLoading } = useContext(AuthContext);
+  const { loading, setLoading } = useContext(AuthContext);
 
   function register(e) {
     e.preventDefault();
@@ -27,8 +27,14 @@ export default function SignUp() {
         password: password.toString(),
       }
     );
-    promise.then(() => {navigate("/"); setLoading(false)} );
-    promise.catch((err) => {console.log(err); setLoading(false)});
+    promise.then(() => {
+      navigate("/");
+      setLoading(false);
+    });
+    promise.catch((err) => {
+      alert(err.response.data.message);
+      setLoading(false);
+    });
   }
 
   return (
@@ -42,6 +48,7 @@ export default function SignUp() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
           required
+          data-test="email-input"
         />
         <Input
           type="password"
@@ -50,6 +57,7 @@ export default function SignUp() {
           onChange={(e) => setPassword(e.target.value)}
           disabled={loading}
           required
+          data-test="password-input"
         />
         <Input
           type="text"
@@ -58,6 +66,7 @@ export default function SignUp() {
           onChange={(e) => setName(e.target.value)}
           disabled={loading}
           required
+          data-test="user-name-input"
         />
         <Input
           type="url"
@@ -66,10 +75,13 @@ export default function SignUp() {
           onChange={(e) => setImage(e.target.value)}
           disabled={loading}
           required
+          data-test="user-image-input"
         />
-        <Button type="submit">{loading ? <BeatLoader color="white"/> : "Cadastrar" }</Button>
+        <Button type="submit" data-test="signup-btn">
+          {loading ? <BeatLoader color="white" /> : "Cadastrar"}
+        </Button>
       </Form>
-      <Link to="/" disabled={loading}>
+      <Link to="/" disabled={loading} data-test="login-link">
         <p>Já tem uma conta? Faça login!</p>
       </Link>
     </ContainerSignUp>
@@ -98,7 +110,7 @@ const ContainerSignUp = styled.div`
     color: #52b6ff;
     margin-top: 8%;
   }
-  a{
+  a {
     text-decoration: none;
   }
 `;
@@ -118,15 +130,6 @@ const Input = styled.input`
   background: #ffffff;
   border: 1px solid #d5d5d5;
   border-radius: 5px;
-  ::placeholder {
-    padding-left: 3%;
-    font-family: "Lexend Deca";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 25px;
-    color: #dbdbdb;
-  }
 `;
 
 const Button = styled.button`
@@ -136,7 +139,6 @@ const Button = styled.button`
   background: #52b6ff;
   border-radius: 5px;
   border: none;
-  font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;

@@ -1,17 +1,17 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../contexts/Context";
-import { BeatLoader } from 'react-spinners'
+import { BeatLoader } from "react-spinners";
 
 export default function NewHabit() {
   const days = [
-    { name: "D", id: "7" },
-    { name: "S", id: "1" },
-    { name: "T", id: "2" },
-    { name: "Q", id: "3" },
-    { name: "Q", id: "4" },
-    { name: "S", id: "5" },
-    { name: "S", id: "6" },
+    { name: "D", id: 0 },
+    { name: "S", id: 1 },
+    { name: "T", id: 2 },
+    { name: "Q", id: 3 },
+    { name: "Q", id: 4 },
+    { name: "S", id: 5 },
+    { name: "S", id: 6 },
   ];
 
   const [daysHabit, setDaysHabit] = useState([]);
@@ -20,8 +20,8 @@ export default function NewHabit() {
 
   function createH(e) {
     e.preventDefault();
-    if (daysHabit > 0) {
-      create(e, nameHabit, daysHabit);
+    if (daysHabit.length > 0) {
+      create(nameHabit, daysHabit);
     } else {
       alert("Selecione ao menos um dia");
     }
@@ -29,9 +29,6 @@ export default function NewHabit() {
 
   function setDays(e, i) {
     e.preventDefault();
-    if (i === 0) {
-      i = 7;
-    }
     if (daysHabit.includes(i)) {
       const array = daysHabit;
       const index = array.indexOf(i);
@@ -43,7 +40,7 @@ export default function NewHabit() {
   }
 
   return (
-    <Container>
+    <Container data-test="habit-create-container">
       <Form>
         <Input
           type="text"
@@ -52,6 +49,7 @@ export default function NewHabit() {
           onChange={(e) => setNameHabit(e.target.value)}
           disabled={loading}
           required
+          data-test="habit-name-input"
         ></Input>
         <ContainerButtonsDay>
           {days.map((day) => (
@@ -61,18 +59,28 @@ export default function NewHabit() {
               onClick={(e) => setDays(e, day.id)}
               color={daysHabit.includes(day.id) ? "#CFCFCF" : "white"}
               disabled={loading}
+              data-test="habit-day"
             >
               {day.name}
             </ButtonDay>
           ))}
         </ContainerButtonsDay>
         <ContainerButton>
-          <ButtonCancel onClick={() => setCreateHabit(false)} disabled={loading}>
+          <ButtonCancel
+            onClick={() => setCreateHabit(false)}
+            disabled={loading}
+            data-test="habit-create-cancel-btn"
+          >
             {" "}
             Cancelar
           </ButtonCancel>
-          <ButtonSave type="submit" onClick={createH} disabled={loading}>
-          {loading ? <BeatLoader color="white" size="10"/> : "Salvar" }
+          <ButtonSave
+            type="submit"
+            onClick={createH}
+            disabled={loading}
+            data-test="habit-create-save-btn"
+          >
+            {loading ? <BeatLoader color="white" size="10px" /> : "Salvar"}
           </ButtonSave>
         </ContainerButton>
       </Form>
@@ -120,14 +128,6 @@ const Input = styled.input`
   border: 1px solid #d5d5d5;
   border-radius: 5px;
   margin-top: 5%;
-  ::placeholder {
-    padding-left: 3%;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 19px;
-    line-height: 25px;
-    color: #dbdbdb;
-  }
 `;
 
 const ButtonDay = styled.button`

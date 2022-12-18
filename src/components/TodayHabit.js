@@ -2,9 +2,10 @@ import styled from "styled-components";
 import { AuthContext } from "../contexts/Context";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { BeatLoader } from "react-spinners";
 
 export default function TodayHabit() {
-  const { token, setTodayHabits, todayHabits, conclude } =
+  const { token, setTodayHabits, todayHabits, conclude, loading } =
     useContext(AuthContext);
   const [done, setDone] = useState(false);
 
@@ -18,10 +19,11 @@ export default function TodayHabit() {
       }
     );
     promise.then((res) => {
+      console.log(res);
       setTodayHabits(res.data);
     });
     promise.catch((err) => console.log(err));
-  }, [done]);
+  }, [done, loading]);
 
   function doneH(i, done) {
     if (done) {
@@ -56,23 +58,23 @@ export default function TodayHabit() {
   }
 
   if (todayHabits === undefined) {
-    return <h1>Carregando...</h1>;
+    return <BeatLoader color="#52b6ff" />;
   }
 
   conclude();
   return (
     <>
       {todayHabits.map((habit) => (
-        <Container key={habit.id}>
+        <Container key={habit.id} data-test="today-habit-container">
           <ContainerHabit>
-            <h1>{habit.name}</h1>
-            <p>
+            <h1 data-test="today-habit-name">{habit.name}</h1>
+            <p data-test="today-habit-sequence">
               Sequência atual:{" "}
               <Sequence color={habit.done ? "#8FC549" : undefined}>
                 {habit.currentSequence} dias
               </Sequence>
             </p>
-            <p>
+            <p data-test="today-habit-record">
               Seu recorde:{" "}
               <Sequence
                 color={
@@ -92,6 +94,7 @@ export default function TodayHabit() {
                 doneH(habit.id, habit.done);
                 setDone(true);
               }}
+              data-test="today-habit-check-btn"
             ></ion-icon>
           </ContainerStatus>
         </Container>
@@ -116,7 +119,6 @@ const ContainerHabit = styled.div`
   width: 70%;
   background-color: white;
   border-radius: 5px;
-  font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   color: #666666;

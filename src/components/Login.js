@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/Context";
-import { BeatLoader } from 'react-spinners'
-
+import { BeatLoader } from "react-spinners";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -22,6 +21,7 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
           required
+          data-test="email-input"
         />
         <Input
           type="password"
@@ -30,11 +30,14 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           disabled={loading}
           required
+          data-test="password-input"
         />
-        <Button type="submit" disabled={loading}> {loading ? <BeatLoader color="white"/> : "Entrar" } </Button>
-        
+        <Button type="submit" disabled={loading} data-test="login-btn">
+          {" "}
+          {loading ? <BeatLoader color="white" /> : "Entrar"}{" "}
+        </Button>
       </Form>
-      <Link to="/cadastro">
+      <Link to="/cadastro" data-test="signup-link">
         <p>Não tem uma conta? Cadastre-se!</p>
       </Link>
     </ContainerLogin>
@@ -53,7 +56,6 @@ const ContainerLogin = styled.div`
     width: 50%;
   }
   p {
-    font-family: "Lexend Deca";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -63,7 +65,7 @@ const ContainerLogin = styled.div`
     color: #52b6ff;
     margin-top: 8%;
   }
-  a{
+  a {
     text-decoration: none;
   }
 `;
@@ -83,15 +85,6 @@ const Input = styled.input`
   background: #ffffff;
   border: 1px solid #d5d5d5;
   border-radius: 5px;
-  ::placeholder {
-    padding-left: 3%;
-    font-family: "Lexend Deca";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 25px;
-    color: #dbdbdb;
-  }
 `;
 
 const Button = styled.button`
@@ -101,7 +94,6 @@ const Button = styled.button`
   background: #52b6ff;
   border-radius: 5px;
   border: none;
-  font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;

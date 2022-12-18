@@ -7,7 +7,7 @@ export default function Navbar() {
   const { image } = useContext(AuthContext);
 
   return (
-    <Nav>
+    <Nav data-test="header">
       <Link to="/">
         <p>TrackIt</p>
       </Link>

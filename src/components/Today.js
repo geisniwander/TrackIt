@@ -55,10 +55,10 @@ export default function Today() {
       <Total>
         <ContainerHabits>
           <Title>
-            <h1>
+            <h1 data-test="today">
               {day}, {dayjs().format("DD-MM")}
             </h1>
-            <Percentage />
+            <Percentage data-test="today-counter" />
           </Title>
           <TodayHabit />
         </ContainerHabits>
@@ -88,7 +88,6 @@ const Title = styled.div`
   box-sizing: border-box;
   padding-left: 5%;
   padding-right: 5%;
-  font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   overflow-y: hidden;

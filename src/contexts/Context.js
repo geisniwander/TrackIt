@@ -11,7 +11,7 @@ export default function AuthProvider({ children }) {
   const [createHabit, setCreateHabit] = useState(false);
   const [habits, setHabits] = useState(undefined);
   const [deletH, setDeleteH] = useState(false);
-  const [qtdDone, setQtdDone] = useState(undefined);
+  const [qtdDone, setQtdDone] = useState(0);
   const [todayHabits, setTodayHabits] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
@@ -37,8 +37,7 @@ export default function AuthProvider({ children }) {
     });
   }
 
-  function create(e, name, days) {
-    e.preventDefault();
+  function create(name, days) {
     setLoading(true);
     const body = { name, days };
     const config = {
@@ -57,7 +56,10 @@ export default function AuthProvider({ children }) {
       setName("");
       setLoading(false);
     });
-    promise.catch((err) => {console.log(err);setLoading(false)});
+    promise.catch((err) => {
+      console.log(err);
+      setLoading(false);
+    });
   }
 
   function conclude() {
@@ -91,7 +93,7 @@ export default function AuthProvider({ children }) {
         setTodayHabits,
         conclude,
         loading,
-        setLoading
+        setLoading,
       }}
     >
       {children}

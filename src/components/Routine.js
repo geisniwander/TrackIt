@@ -16,7 +16,12 @@ export default function Routine() {
         <ContainerHabits>
           <Title>
             <p>Meus Hábitos</p>
-            <Add onClick={() => setCreateHabit(true)}>+</Add>
+            <Add
+              onClick={() => setCreateHabit(true)}
+              data-test="habit-create-btn"
+            >
+              +
+            </Add>
           </Title>
           {createHabit ? <NewHabit /> : null}
           <Habit />
@@ -50,7 +55,6 @@ const Title = styled.div`
   box-sizing: border-box;
   padding-left: 5%;
   padding-right: 5%;
-  font-family: "Lexend Deca";
   font-style: normal;
   font-weight: 400;
   font-size: 22px;

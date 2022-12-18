@@ -8,16 +8,16 @@ import "react-circular-progressbar/dist/styles.css";
 export default function Footer() {
   const { qtdDone } = useContext(AuthContext);
   return (
-    <Container>
+    <Container data-test="menu">
       <Menu>
-        <Link to="/habitos">
+        <Link to="/habitos" data-test="habit-link">
           <p>Hábitos</p>
         </Link>
-        <Link to="/historico">
+        <Link to="/historico" data-test="history-link">
           <p>Histórico</p>
         </Link>
       </Menu>
-      <Link to="/hoje">
+      <Link to="/hoje" data-test="today">
         <Progress>
           <CircularProgressbar
             value={qtdDone}
@@ -47,7 +47,6 @@ const Container = styled.div`
   padding: 3%;
   a {
     text-decoration: none;
-    font-family: "Lexend Deca";
     font-style: normal;
     font-weight: 400;
     font-size: 17px;

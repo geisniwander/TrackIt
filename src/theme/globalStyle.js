@@ -47,7 +47,33 @@ const GlobalStyle = createGlobalStyle`
  }
  *{
     overflow-x: hidden;
-    font-family: "Roboto", sans-serif;
  }
+input{
+    box-sizing:border-box;
+    padding-left: 4%;
+    :disabled{
+        background-color: #f2f2f2;
+      }
+      ::placeholder {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 25px;
+        color: #dbdbdb;
+      }
+
+}
+
+input:focus, textarea:focus, select:focus {
+    outline-offset: 0px !important;
+    outline: none !important;
+    }
+
+button{
+    :disabled{
+        filter: opacity(70%);
+      }
+}
+
 `;
 export default GlobalStyle;
