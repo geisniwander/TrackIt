@@ -3,11 +3,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/Context";
+import { BeatLoader } from 'react-spinners'
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
+  const { login, loading } = useContext(AuthContext);
 
   return (
     <ContainerLogin>
@@ -18,6 +20,7 @@ export default function Login() {
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
           required
         />
         <Input
@@ -25,9 +28,11 @@ export default function Login() {
           placeholder="senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={loading}
           required
         />
-        <Button type="submit">Entrar</Button>
+        <Button type="submit" disabled={loading}> {loading ? <BeatLoader color="white"/> : "Entrar" } </Button>
+        
       </Form>
       <Link to="/cadastro">
         <p>Não tem uma conta? Cadastre-se!</p>

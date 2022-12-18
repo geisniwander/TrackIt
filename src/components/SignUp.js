@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { BeatLoader } from 'react-spinners'
+import { AuthContext } from "../contexts/Context";
+import { useContext } from "react";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -10,9 +13,11 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
+  const {loading, setLoading } = useContext(AuthContext);
 
   function register(e) {
     e.preventDefault();
+    setLoading(true);
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
       {
@@ -22,8 +27,8 @@ export default function SignUp() {
         password: password.toString(),
       }
     );
-    promise.then(() => navigate("/"));
-    promise.catch((err) => console.log(err));
+    promise.then(() => {navigate("/"); setLoading(false)} );
+    promise.catch((err) => {console.log(err); setLoading(false)});
   }
 
   return (
@@ -35,6 +40,7 @@ export default function SignUp() {
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
           required
         />
         <Input
@@ -42,6 +48,7 @@ export default function SignUp() {
           placeholder="senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={loading}
           required
         />
         <Input
@@ -49,6 +56,7 @@ export default function SignUp() {
           placeholder="nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          disabled={loading}
           required
         />
         <Input
@@ -56,11 +64,12 @@ export default function SignUp() {
           placeholder="foto"
           value={image}
           onChange={(e) => setImage(e.target.value)}
+          disabled={loading}
           required
         />
-        <Button type="submit">Cadastrar</Button>
+        <Button type="submit">{loading ? <BeatLoader color="white"/> : "Cadastrar" }</Button>
       </Form>
-      <Link to="/">
+      <Link to="/" disabled={loading}>
         <p>Já tem uma conta? Faça login!</p>
       </Link>
     </ContainerSignUp>

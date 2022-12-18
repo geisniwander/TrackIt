@@ -13,11 +13,13 @@ export default function AuthProvider({ children }) {
   const [deletH, setDeleteH] = useState(false);
   const [qtdDone, setQtdDone] = useState(undefined);
   const [todayHabits, setTodayHabits] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   function login(e, email, password) {
     e.preventDefault();
+    setLoading(true);
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       { email: email.toString(), password: password.toString() }
@@ -27,14 +29,17 @@ export default function AuthProvider({ children }) {
       setName(r.data.name);
       setImage(r.data.image);
       navigate("/hoje");
+      setLoading(false);
     });
     promise.catch((err) => {
       alert(err.response.data.message);
+      setLoading(false);
     });
   }
 
   function create(e, name, days) {
     e.preventDefault();
+    setLoading(true);
     const body = { name, days };
     const config = {
       headers: {
@@ -50,8 +55,9 @@ export default function AuthProvider({ children }) {
       navigate("/habitos");
       setCreateHabit(false);
       setName("");
+      setLoading(false);
     });
-    promise.catch((err) => console.log(err));
+    promise.catch((err) => {console.log(err);setLoading(false)});
   }
 
   function conclude() {
@@ -84,6 +90,8 @@ export default function AuthProvider({ children }) {
         todayHabits,
         setTodayHabits,
         conclude,
+        loading,
+        setLoading
       }}
     >
       {children}

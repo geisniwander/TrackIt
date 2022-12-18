@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../contexts/Context";
+import { BeatLoader } from 'react-spinners'
 
 export default function NewHabit() {
   const days = [
@@ -14,7 +15,7 @@ export default function NewHabit() {
   ];
 
   const [daysHabit, setDaysHabit] = useState([]);
-  const { setCreateHabit, create } = useContext(AuthContext);
+  const { setCreateHabit, create, loading } = useContext(AuthContext);
   const [nameHabit, setNameHabit] = useState("");
 
   function createH(e) {
@@ -49,6 +50,7 @@ export default function NewHabit() {
           placeholder="nome do hábito"
           value={nameHabit}
           onChange={(e) => setNameHabit(e.target.value)}
+          disabled={loading}
           required
         ></Input>
         <ContainerButtonsDay>
@@ -58,18 +60,19 @@ export default function NewHabit() {
               indexDay={day.id}
               onClick={(e) => setDays(e, day.id)}
               color={daysHabit.includes(day.id) ? "#CFCFCF" : "white"}
+              disabled={loading}
             >
               {day.name}
             </ButtonDay>
           ))}
         </ContainerButtonsDay>
         <ContainerButton>
-          <ButtonCancel onClick={() => setCreateHabit(false)}>
+          <ButtonCancel onClick={() => setCreateHabit(false)} disabled={loading}>
             {" "}
             Cancelar
           </ButtonCancel>
-          <ButtonSave type="submit" onClick={createH}>
-            Salvar
+          <ButtonSave type="submit" onClick={createH} disabled={loading}>
+          {loading ? <BeatLoader color="white" size="10"/> : "Salvar" }
           </ButtonSave>
         </ContainerButton>
       </Form>
