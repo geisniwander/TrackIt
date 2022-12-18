@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { AuthContext } from "../contexts/Context";
+import React, { useContext } from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Footer() {
+  const { qtdDone } = useContext(AuthContext);
   return (
     <Container>
       <Menu>
@@ -14,7 +19,18 @@ export default function Footer() {
       </Menu>
       <Link to="/hoje">
         <Progress>
-          <p>Hoje</p>
+          <CircularProgressbar
+            value={qtdDone}
+            text={`Hoje`}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+              backgroundColor: "#52b6ff",
+              textColor: "#fff",
+              pathColor: "#fff",
+              trailColor: "transparent",
+            })}
+          />
         </Progress>
       </Link>
     </Container>
@@ -29,7 +45,7 @@ const Container = styled.div`
   justify-content: center;
   box-sizing: border-box;
   padding: 3%;
-  a{
+  a {
     text-decoration: none;
     font-family: "Lexend Deca";
     font-style: normal;
@@ -51,9 +67,9 @@ const Menu = styled.div`
   box-sizing: border-box;
   padding: 5%;
   background-color: white;
-  p{
+  p {
     color: #52b6ff;
-  }    
+  }
 `;
 
 const Progress = styled.div`

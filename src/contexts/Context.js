@@ -12,6 +12,8 @@ export default function AuthProvider({ children }) {
   const [habits, setHabits] = useState(undefined);
   const [deletH, setDeleteH] = useState(false);
   const [qtdDone, setQtdDone] = useState(0);
+  const [todayHabits, setTodayHabits] = useState(undefined);
+
 
 
   const navigate = useNavigate();
@@ -52,6 +54,13 @@ export default function AuthProvider({ children }) {
     promise.catch((err) => console.log(err));
   }
 
+  function conclude(){
+    let qtd = todayHabits.length;
+    let done =0;
+    todayHabits.map((habit)=> habit.done && done++ )
+    setQtdDone(((done/qtd)*100).toFixed())
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -67,7 +76,9 @@ export default function AuthProvider({ children }) {
         deletH, 
         setDeleteH,
         qtdDone,
-        setQtdDone
+        todayHabits,
+        setTodayHabits,
+        conclude
       }}
     >
       {children}

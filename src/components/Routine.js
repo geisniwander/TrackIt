@@ -7,32 +7,38 @@ import NewHabit from "./NewHabit";
 import { AuthContext } from "../contexts/Context";
 
 export default function Routine() {
-const {createHabit, setCreateHabit} = useContext(AuthContext);
+  const { createHabit, setCreateHabit } = useContext(AuthContext);
 
   return (
-    <>
+   <>
       <Navbar />
+      <Total>
       <ContainerHabits>
         <Title>
           <p>Meus Hábitos</p>
-          <Add onClick={()=> setCreateHabit(true)}>+</Add>
+          <Add onClick={() => setCreateHabit(true)}>+</Add>
         </Title>
         {createHabit ? <NewHabit /> : null}
         <Habit />
       </ContainerHabits>
+      </Total>
       <Footer />
-    </>
+      </>
   );
 }
-
+const Total = styled.div`
+height: 100vh;
+background-color: #f2f2f2;
+`
 const ContainerHabits = styled.div`
-  min-height: 100vh;
-  width: 100;
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f2f2f2;
   color: #126ba5;
+  padding-bottom: 30%;
 `;
 
 const Title = styled.div`

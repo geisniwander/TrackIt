@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import lixeira from "../assets/lixeira.png";
 import { AuthContext } from "../contexts/Context";
 
 export default function Habit() {
-  const days = ["D", "S", "T", "Q", "Q", "S", "S", "S"];
+  const days = ["D", "S", "T", "Q", "Q", "S", "S"];
   const { token, createHabit,habits,setHabits,deletH, setDeleteH } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -80,11 +80,10 @@ export default function Habit() {
 }
 const Total = styled.div`
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
+  overflow: auto;
 `;
 const Container = styled.div`
   width: 90%;

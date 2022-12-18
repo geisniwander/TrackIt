@@ -18,8 +18,12 @@ export default function NewHabit() {
   const [nameHabit, setNameHabit] = useState("");
 
   function createH(e) {
-    if (daysHabit.length > 0) {
+    e.preventDefault();
+    if(daysHabit>0){
       create(e, nameHabit, daysHabit);
+    }
+    else{
+      alert("Selecione ao menos um dia")
     }
   }
 

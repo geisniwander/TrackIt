@@ -4,10 +4,9 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export default function TodayHabit() {
-  const { token, createHabit, habits, setHabits, setQtdDone } = useContext(AuthContext);
-  const [todayHabits, setTodayHabits] = useState(undefined);
+  const { token, setTodayHabits, todayHabits, conclude } =
+    useContext(AuthContext);
   const [done, setDone] = useState(false);
- 
 
   useEffect(() => {
     const promise = axios.get(
@@ -20,13 +19,9 @@ export default function TodayHabit() {
     );
     promise.then((res) => {
       setTodayHabits(res.data);
-      
     });
     promise.catch((err) => console.log(err));
-
   }, [done]);
-
-
 
   function doneH(i, done) {
     if (done) {
@@ -60,27 +55,36 @@ export default function TodayHabit() {
     }
   }
 
-  function conclude(){
-    let qtd = todayHabits.length;
-    let done =0;
-    todayHabits.map((habit)=> {habit.done ? done++ : done=done })
-    console.log(done)
-    setQtdDone((done/qtd)*100)
-  }
-
   if (todayHabits === undefined) {
     return <h1>Carregando...</h1>;
   }
 
+  conclude();
   return (
-    conclude(),
-    <>        
+    <>
       {todayHabits.map((habit) => (
         <Container key={habit.id}>
           <ContainerHabit>
             <h1>{habit.name}</h1>
-            <p>Sequência atual: {habit.currentSequence}</p>
-            <p>Seu recorde: {habit.highestSequence}</p>
+            <p>
+              Sequência atual:{" "}
+              <Sequence
+                color={(habit.done) ? "#8FC549" : undefined}
+              >
+                {habit.currentSequence} dias
+              </Sequence>
+            </p>
+            <p>
+              Seu recorde:{" "}
+              <Sequence
+                color={
+                  (habit.done && habit.currentSequence === habit.highestSequence) ?
+                  "#8FC549" : undefined
+                }
+              >
+                {habit.highestSequence} dias
+              </Sequence>
+            </p>
           </ContainerHabit>
           <ContainerStatus color={habit.done ? "#8FC549" : "#E7E7E7"}>
             <ion-icon
@@ -137,4 +141,9 @@ const ContainerStatus = styled.div`
     font-size: 90px;
     color: ${(props) => props.color};
   }
+`;
+
+const Sequence = styled.span`
+display: inline;
+  color: ${(props) => props.color};
 `;

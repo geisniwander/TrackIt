@@ -29,6 +29,7 @@ const Nav = styled.div`
   box-sizing: border-box;
   padding: 5%;
   overflow: hidden;
+  z-index:10;
   p {
     font-family: "Playball";
     font-style: normal;

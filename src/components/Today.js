@@ -8,9 +8,8 @@ import { AuthContext } from "../contexts/Context";
 import { useContext } from "react";
 
 export default function Today() {
-    const { qtdDone } = useContext(AuthContext);
-
-    dayjs.locale("pt-br");
+  const { qtdDone } = useContext(AuthContext);
+  dayjs.locale("pt-br");
   let day = dayjs().format("dddd");
   today();
 
@@ -40,28 +39,40 @@ export default function Today() {
   return (
     <>
       <Navbar />
+      <Total>
       <ContainerHabits>
         <Title>
           <h1>
             {day}, {dayjs().format("DD-MM")}
           </h1>
-          <p>{qtdDone===0 ? "Nenhum hábito concluído ainda" : `${qtdDone}%`}</p>
+          <p>
+            {qtdDone === 0 ? 
+              "Nenhum hábito concluído ainda"
+             : 
+              <Sequence>{qtdDone}% dos hábitos concluídos</Sequence>
+            }
+          </p>
         </Title>
         <TodayHabit />
       </ContainerHabits>
+      </Total>
       <Footer />
-    </>
+      </>
   );
 }
-
+const Total = styled.div`
+height: 100vh;
+background-color: #f2f2f2;
+`
 const ContainerHabits = styled.div`
-  min-height: 100vh;
-  width: 100;
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f2f2f2;
   color: #126ba5;
+  padding-bottom:30%;
 `;
 
 const Title = styled.div`
@@ -83,4 +94,9 @@ const Title = styled.div`
     line-height: 22px;
     color: #bababa;
   }
+`;
+
+const Sequence = styled.span`
+  display: inline;
+  color: #8fc549;
 `;
