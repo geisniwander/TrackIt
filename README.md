@@ -9,7 +9,7 @@
 </br>
 
 ## ✏️ Descrição
-<p align="justify" >Projeto que implementa uma página de controle de hábitos. Nela, o usuário pode realizar um cadastro e posterior login. Quando logado, é possível criar novos hábitos (ao clicar no menu em "Hábitos" e depois no sinal de +), verificar os hábitos do dia na página "Hoje" (podendo clicar no símbolo de V para marcar ou desmarcar o hábito como concluído), excluir hábitos e verificar a porcentagem de conclusão no dia, na tela "Hoje" logo abaixo do dia atual ou na barra de progresso presente em torno do botão "Hoje" no menu inferior.</p>
+<p align="justify" >Projeto que implementa uma página MOBILE de controle de hábitos. Nela, o usuário pode realizar um cadastro e posterior login. Quando logado, é possível criar novos hábitos (ao clicar no menu em "Hábitos" e depois no sinal de +), verificar os hábitos do dia na página "Hoje" (podendo clicar no símbolo de V para marcar ou desmarcar o hábito como concluído), excluir hábitos e verificar a porcentagem de conclusão no dia, na tela "Hoje" logo abaixo do dia atual ou na barra de progresso presente em torno do botão "Hoje" no menu inferior.</p>
 
 </br>
 

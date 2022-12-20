@@ -20,6 +20,10 @@ export default function NewHabit() {
 
   function createH(e) {
     e.preventDefault();
+    if (nameHabit === "") {
+      alert("Digite um título para o hábito");
+      return;
+    }
     if (daysHabit.length > 0) {
       create(nameHabit, daysHabit);
     } else {
@@ -97,7 +101,6 @@ const Container = styled.div`
   margin-top: 5%;
   border-radius: 5px;
 `;
-
 const Form = styled.form`
   width: 100%;
   height: 20%;
@@ -105,14 +108,12 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-
 const ContainerButtonsDay = styled.div`
   width: 90%;
   background-color: white;
   display: flex;
   margin-top: 2%;
 `;
-
 const ContainerButton = styled.div`
   width: 90%;
   background-color: white;
@@ -121,7 +122,6 @@ const ContainerButton = styled.div`
   margin-top: 7%;
   margin-bottom: 3%;
 `;
-
 const Input = styled.input`
   width: 90%;
   height: 48px;
@@ -129,7 +129,6 @@ const Input = styled.input`
   border-radius: 5px;
   margin-top: 5%;
 `;
-
 const ButtonDay = styled.button`
   width: 33px;
   height: 33px;
@@ -146,7 +145,6 @@ const ButtonDay = styled.button`
   align-items: center;
   justify-content: center;
 `;
-
 const ButtonCancel = styled.button`
   width: 84px;
   height: 35px;

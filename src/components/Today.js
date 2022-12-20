@@ -39,11 +39,11 @@ export default function Today() {
 
   function Percentage() {
     if (qtdDone <= 0) {
-      return <p>Nenhum hábito concluído ainda</p>;
+      return <p data-test="today-counter">Nenhum hábito concluído ainda</p>;
     } else {
       return (
         <Sequence>
-          <p>{qtdDone}% dos hábitos concluídos</p>
+          <p data-test="today-counter">{qtdDone}% dos hábitos concluídos</p>
         </Sequence>
       );
     }
@@ -58,7 +58,7 @@ export default function Today() {
             <h1 data-test="today">
               {day}, {dayjs().format("DD-MM")}
             </h1>
-            <Percentage data-test="today-counter" />
+            <Percentage />
           </Title>
           <TodayHabit />
         </ContainerHabits>
@@ -68,7 +68,7 @@ export default function Today() {
   );
 }
 const Total = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f2f2f2;
 `;
 const ContainerHabits = styled.div`
@@ -81,7 +81,6 @@ const ContainerHabits = styled.div`
   color: #126ba5;
   padding-bottom: 30%;
 `;
-
 const Title = styled.div`
   margin-top: 25%;
   width: 100%;
@@ -102,7 +101,6 @@ const Title = styled.div`
     color: #bababa;
   }
 `;
-
 const Sequence = styled.span`
   display: inline;
   p {

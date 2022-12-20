@@ -67,10 +67,11 @@ export default function AuthProvider({ children }) {
       setQtdDone(0);
       return;
     } else {
-      let qtd = todayHabits.length;
+      const qtd = todayHabits.length;
+      const percent = 100;
       let done = 0;
       todayHabits.map((habit) => habit.done && done++);
-      setQtdDone(((done / qtd) * 100).toFixed());
+      setQtdDone(((done / qtd) * percent).toFixed());
     }
   }
 

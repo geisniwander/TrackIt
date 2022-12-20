@@ -141,7 +141,6 @@ const ContainerButtonsDay = styled.div`
   margin-top: 3%;
   margin-bottom: 5%;
 `;
-
 const ButtonDay = styled.button`
   width: 33px;
   height: 33px;
@@ -158,7 +157,6 @@ const ButtonDay = styled.button`
   align-items: center;
   justify-content: center;
 `;
-
 const None = styled.div`
   margin-top: 5%;
   width: 90%;

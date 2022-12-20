@@ -46,7 +46,7 @@ export default function Login() {
 
 const ContainerLogin = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +69,6 @@ const ContainerLogin = styled.div`
     text-decoration: none;
   }
 `;
-
 const Form = styled.form`
   width: 80%;
   height: 20%;
@@ -77,7 +76,6 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-
 const Input = styled.input`
   width: 98%;
   height: 45px;
@@ -86,7 +84,6 @@ const Input = styled.input`
   border: 1px solid #d5d5d5;
   border-radius: 5px;
 `;
-
 const Button = styled.button`
   width: 99%;
   height: 45px;

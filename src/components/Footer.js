@@ -54,23 +54,22 @@ const Container = styled.div`
     text-align: center;
   }
 `;
-
 const Menu = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 73px;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
   padding: 5%;
   background-color: white;
+  overflow-y: hidden;
   p {
     color: #52b6ff;
   }
 `;
-
 const Progress = styled.div`
   width: 90px;
   height: 90px;

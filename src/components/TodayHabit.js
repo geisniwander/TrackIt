@@ -36,7 +36,7 @@ export default function TodayHabit() {
           },
         }
       );
-      promise.then((res) => {
+      promise.then(() => {
         setDone(false);
       });
       promise.catch((err) => console.log(err));
@@ -50,7 +50,7 @@ export default function TodayHabit() {
           },
         }
       );
-      promise.then((res) => {
+      promise.then(() => {
         setDone(false);
       });
       promise.catch((err) => console.log(err));
@@ -114,7 +114,6 @@ const Container = styled.div`
   margin-top: 5%;
   border-radius: 5px;
 `;
-
 const ContainerHabit = styled.div`
   width: 70%;
   background-color: white;
@@ -132,7 +131,6 @@ const ContainerHabit = styled.div`
     line-height: 16px;
   }
 `;
-
 const ContainerStatus = styled.div`
   width: 30%;
   background-color: white;
@@ -143,7 +141,6 @@ const ContainerStatus = styled.div`
     color: ${(props) => props.color};
   }
 `;
-
 const Sequence = styled.span`
   display: inline;
   color: ${(props) => props.color};

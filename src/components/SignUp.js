@@ -77,7 +77,7 @@ export default function SignUp() {
           required
           data-test="user-image-input"
         />
-        <Button type="submit" data-test="signup-btn">
+        <Button type="submit" disabled={loading} data-test="signup-btn">
           {loading ? <BeatLoader color="white" /> : "Cadastrar"}
         </Button>
       </Form>
@@ -90,10 +90,11 @@ export default function SignUp() {
 
 const ContainerSignUp = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
   img {
     margin-top: 20%;
     margin-bottom: 10%;
@@ -114,7 +115,6 @@ const ContainerSignUp = styled.div`
     text-decoration: none;
   }
 `;
-
 const Form = styled.form`
   width: 80%;
   height: 35%;
@@ -122,7 +122,6 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `;
-
 const Input = styled.input`
   width: 98%;
   height: 45px;
@@ -131,7 +130,6 @@ const Input = styled.input`
   border: 1px solid #d5d5d5;
   border-radius: 5px;
 `;
-
 const Button = styled.button`
   width: 99%;
   height: 45px;

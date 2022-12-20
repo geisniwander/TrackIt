@@ -26,7 +26,6 @@ const Container = styled.div`
   background-color: #f2f2f2;
   color: #126ba5;
 `;
-
 const Title = styled.div`
   margin-top: 25%;
   width: 100%;

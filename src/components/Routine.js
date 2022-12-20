@@ -32,7 +32,7 @@ export default function Routine() {
   );
 }
 const Total = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f2f2f2;
 `;
 const ContainerHabits = styled.div`
@@ -45,7 +45,6 @@ const ContainerHabits = styled.div`
   color: #126ba5;
   padding-bottom: 30%;
 `;
-
 const Title = styled.div`
   margin-top: 25%;
   width: 100%;
@@ -60,7 +59,6 @@ const Title = styled.div`
   font-size: 22px;
   line-height: 29px;
 `;
-
 const Add = styled.div`
   width: 40px;
   height: 35px;
